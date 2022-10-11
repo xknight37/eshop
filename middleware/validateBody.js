@@ -2,45 +2,53 @@
  * middleware logic to perform checks for new users signup
  */
 
-validateBody = (req,res,next)=>{
-    if(!req.body.first_name){
+
+exports.validateBody = (req,res,next)=>{
+
+    let first_name = req.body.first_name;
+    let last_name = req.body.last_name;
+    let email = req.body.email;
+    let password = req.body.password;
+    let phone_number = req.body.phone_number;
+
+    if(!first_name){
         return res.status(400).send({
             message : "Please provide first name"
         })
     }
 
-    if(!req.body.last_name){
+    if(!last_name){
         return res.status(400).send({
             message : "Please provide last name"
         })
     }
 
-    if(!req.body.email){
+    if(!email){
         return res.status(400).send({
             message : "Please provide email"
         })
     }
 
-    if(!req.body.password){
+    if(!password){
         return res.status(400).send({
             message : "Please provide password"
         })
     }
 
-    if(!req.body.phone_number){
+    if(!phone_number){
         return res.status(400).send({
             message : "Please provide phone number"
         })
     }
 
-    if(!req.body.phone_number.length == 10){
+    if(!(phone_number.length === 10)){
         return res.status(400).send({
             message : "Invalid contact number!"
         })
     }
 
-    if(req.body.phone_number.length == 10){
-        let val = req.body.phone_number;
+    if(phone_number.length == 10){
+        let val = phone_number;
         let isnum =  /^\d+$/.test(val);
         if(!isnum){
             return res.status(400).send({
@@ -49,22 +57,41 @@ validateBody = (req,res,next)=>{
         }        
     }
 
-    if(req.body.email){
-        let email = req.body.email;
+    if(email){
+        let emailObj = email;
         var filter = /^([a-zA-Z0-9_\.\-])+\@(([a-zA-Z0-9\-])+\.)+([a-zA-Z0-9]{2,4})+$/;
-        if(!filter.test(email)){
+        if(!filter.test(emailObj)){
             return res.status(400).send({
                 message : "Invalid email-id format!"
             })
         }
     }
 
-    const userObj = User.findOne({email: req.body.email});
-    if(userObj){
+    const userObj = User.findOne({email: email});
+    if(!userObj){
         return res.status(400).send({
             message : "Try any other email, this email is already registered!"
         })
     }
+
+    next();
+}
+
+exports.validateCreds = (req,res,next)=>{
+    if(!req.body.email){
+        return res.status(400).send({
+            message : "Please provide email"
+    })}
+
+    if(!req.body.password){
+        return res.status(400).send({
+            message : "Please provide password"
+    })}
+
+    if(!req.body.password && !req.body.email){
+        return res.status(400).send({
+            message : "Email and password cannot be empty!"
+    })}
 
     next();
 }
