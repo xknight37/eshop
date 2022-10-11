@@ -5,7 +5,12 @@
 const mongoose = require('mongoose');
 const express = require('express');
 const app = express();
+const User = require('./models/user.model');
+const bcrypt = require('bcrypt');
+const dbConfig = require('./configs/db.config');
+const serverConfig = require('./configs/server.config');
 
-app.listen(8080,()=>{
-    console.log("Server started at port 8080");
+
+app.listen(serverConfig.PORT,()=>{
+    console.log(`Server started at port ${serverConfig.PORT}`);
 })
