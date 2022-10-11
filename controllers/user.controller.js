@@ -12,7 +12,6 @@ exports.userSignup = async (req,res)=>{
      * i wanted to find the maximum value of id present and +1 it 
      */
     // const a = User.count();
-    // console.log(JSON.stringify(a));
     const userObj = {
         id : await User.find().count()+1,
         email : req.body.email,
@@ -37,7 +36,6 @@ exports.userSignup = async (req,res)=>{
     }catch(err){
         console.log("Error occurred while creating user",err.message);
     }
-    console.log("inside usersignup method, testing complete")
 
 }
 
