@@ -2,7 +2,7 @@
  * middleware logic to perform checks for new users signup
  */
 
-
+const User = require('../models/user.model');
 exports.validateBody = (req,res,next)=>{
 
     let first_name = req.body.first_name;
@@ -78,6 +78,12 @@ exports.validateBody = (req,res,next)=>{
 }
 
 exports.validateCreds = (req,res,next)=>{
+    try{
+    if(!req.body.password && !req.body.email){
+        return res.status(400).send({
+            message : "Email and password cannot be empty!"
+    })}
+
     if(!req.body.email){
         return res.status(400).send({
             message : "Please provide email"
@@ -88,10 +94,12 @@ exports.validateCreds = (req,res,next)=>{
             message : "Please provide password"
     })}
 
-    if(!req.body.password && !req.body.email){
-        return res.status(400).send({
-            message : "Email and password cannot be empty!"
-    })}
+    
+    }catch(err){
+        return res.status(500).send({
+            message : "Some internal error occurred"
+        })
+    }
 
     next();
 }

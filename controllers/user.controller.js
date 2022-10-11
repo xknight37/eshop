@@ -3,6 +3,8 @@
 const User = require('../models/user.model');
 const mongoose = require('mongoose');
 const bcrypt = require('bcrypt');
+const jwt = require('jsonwebtoken');
+const authSecret = require("../configs/auth.config");
 
 exports.userSignup = async (req,res)=>{
     /**
@@ -41,5 +43,33 @@ exports.userSignup = async (req,res)=>{
 
 
 exports.userLogin = async (req,res)=>{
+
+    const user = await User.findOne({email:req.body.email});
+
+    if(!user){
+        return res.status(400).send({
+            message : "This email has not been registered!"
+        })
+    }
+
+    const isPasswordValid = bcrypt.compareSync(req.body.password, user.password);
+
+    if(!isPasswordValid){
+        return res.status(400).send({
+            message : "Invalid Credentials!"
+        })
+    }
+
+    // create json web token
+
+    const token = jwt.sign({id:user.id},authSecret.secret,{expiresIn:300});
+
+    res.setHeader('x-auth-token',token);
+
+    res.status(200).send({
+        email : user.email,
+        name : user.first_name + user.last_name,
+        isAuthencticated : true
+    })
     
 }
