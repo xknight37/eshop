@@ -1,6 +1,7 @@
 //create user model
 
 const mongoose = require('mongoose');
+const constants = require('../utils/constants')
 
 const userSchema = new mongoose.Schema({
     id : Number,
@@ -9,30 +10,26 @@ const userSchema = new mongoose.Schema({
         required : true
     },
     first_name : {
-        type : String,
-        required : true
+        type : String
     },
     last_name : {
-        type : String,
-        required : true
+        type : String
     },
     password : {
         type : String,
         required : true
     },
     phone_number : {
-        type : String,
-        required : true
+        type : String
     },
     role : {
         type : String,
         required : true,
-        default : "USER",
-        enum : ["USER","ADMIN"]
+        default : constants.userRole.user,
+        enum : [constants.userRole.user,constants.userRole.admin]
     },
     user_name : {
-        type : String,
-        required : true
+        type : String
     }
 },{timestamps : true, versionKey : false}
 );

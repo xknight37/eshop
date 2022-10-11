@@ -1,9 +1,10 @@
 // need the controller and the necessary middleware for this
 
 const userController = require('../controllers/user.controller');
+const userMiddleware = require('../middleware/');
 
 module.exports = (app)=>{
-    app.post('/api/v1/eshop/users',userController.userSignup);
+    app.post('/eshop/api/v1/users',[userMiddleware.validateBody],userController.userSignup);
 
-    app.post('/api/v1/eshop/auth',userController.userLogin);
+    app.post('/eshop/api/v1/auth',userController.userLogin);
 }

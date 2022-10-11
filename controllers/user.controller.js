@@ -3,6 +3,7 @@
 const User = require('../models/user.model');
 
 exports.userSignup = async (req,res)=>{
+    console.log("inside usersignup method, testing complete")
 
 }
 
