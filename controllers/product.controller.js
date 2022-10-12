@@ -95,3 +95,22 @@ exports.updateProduct = async (req,res)=>{
 
     return res.status(200).send(updatedObj);
 }
+
+exports.deleteObject = async (req,res)=>{
+
+    const idObj = req.params.id;
+
+    const objToDelete = await Product.findOneAndDelete({_id : idObj});
+
+    if(!objToDelete){
+        return res.status(404).send({
+            message : `No Product found for ID - ${idObj}!`
+        })
+    }
+
+    return res.status(200).send({
+        message : `Product with ID - ${idObj} deleted successfully!`
+    })
+
+
+}

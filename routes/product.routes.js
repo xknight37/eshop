@@ -13,4 +13,6 @@ module.exports = (app)=>{
     app.post('/eshop/api/v1/products',[checkjwt.isAdmin,productMiddleware.validateProduct],productController.createProduct)
 
     app.put('/eshop/api/v1/products/:id',[checkjwt.isAdmin,productMiddleware.validateForUpdate],productController.updateProduct)
+
+    app.delete('/eshop/api/v1/products/{id}',[checkjwt.isAdmin],)
 }
