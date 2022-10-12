@@ -13,21 +13,21 @@ exports.userSignup = async (req,res)=>{
      */
     // const a = User.count();
     const userObj = {
-        id : await User.find().count()+1,
+        // id : await User.find().count()+1,
         email : req.body.email,
-        first_name : req.body.first_name,
-        last_name : req.body.last_name,
+        firstName : req.body.firstName,
+        lastName : req.body.lastName,
         password : bcrypt.hashSync(req.body.password,10),
-        phone_number : req.body.phone_number
+        phoneNumber : req.body.phoneNumber
     }
     try{
 
         const user = await User.create(userObj);
 
         const userResp = {
-            id : user.id,
-            first_name : user.first_name,
-            last_name : user.last_name,
+            _id : user._id,
+            firstName : user.firstName,
+            lastName : user.lastName,
             email : user.email
         }
 
@@ -60,13 +60,13 @@ exports.userLogin = async (req,res)=>{
 
     // create json web token
 
-    const token = jwt.sign({id:user.id},authSecret.secret,{expiresIn:300});
+    const token = jwt.sign({email:user.email},authSecret.secret,{expiresIn:300});
 
     res.setHeader('x-auth-token',token);
 
     res.status(200).send({
         email : user.email,
-        name : user.first_name + user.last_name,
+        name : user.firstName +" " +user.lastName,
         isAuthencticated : true
     })
     

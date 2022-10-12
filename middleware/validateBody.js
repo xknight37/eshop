@@ -5,19 +5,19 @@
 const User = require('../models/user.model');
 exports.validateBody = (req,res,next)=>{
 
-    let first_name = req.body.first_name;
-    let last_name = req.body.last_name;
+    let firstName = req.body.firstName;
+    let lastName = req.body.lastName;
     let email = req.body.email;
     let password = req.body.password;
-    let phone_number = req.body.phone_number;
+    let phoneNumber = req.body.phoneNumber;
 
-    if(!first_name){
+    if(!firstName){
         return res.status(400).send({
             message : "Please provide first name"
         })
     }
 
-    if(!last_name){
+    if(!lastName){
         return res.status(400).send({
             message : "Please provide last name"
         })
@@ -35,20 +35,20 @@ exports.validateBody = (req,res,next)=>{
         })
     }
 
-    if(!phone_number){
+    if(!phoneNumber){
         return res.status(400).send({
             message : "Please provide phone number"
         })
     }
 
-    if(!(phone_number.length === 10)){
+    if(!(phoneNumber.length === 10)){
         return res.status(400).send({
             message : "Invalid contact number!"
         })
     }
 
-    if(phone_number.length == 10){
-        let val = phone_number;
+    if(phoneNumber.length == 10){
+        let val = phoneNumber;
         let isnum =  /^\d+$/.test(val);
         if(!isnum){
             return res.status(400).send({

@@ -4,22 +4,22 @@ const mongoose = require('mongoose');
 const constants = require('../utils/constants')
 
 const userSchema = new mongoose.Schema({
-    id : Number,
+    // id : Number,
     email : {
         type : String,
         required : true
     },
-    first_name : {
+    firstName : {
         type : String
     },
-    last_name : {
+    lastName : {
         type : String
     },
     password : {
         type : String,
         required : true
     },
-    phone_number : {
+    phoneNumber : {
         type : String
     },
     role : {
@@ -28,7 +28,7 @@ const userSchema = new mongoose.Schema({
         default : constants.userRole.user,
         enum : [constants.userRole.user,constants.userRole.admin]
     },
-    user_name : {
+    userName : {
         type : String
     }
 },{timestamps : true, versionKey : false}
