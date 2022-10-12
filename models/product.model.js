@@ -5,10 +5,18 @@ const Double = require('@mongoosejs/double');
 
 
 const productSchema = new mongoose.Schema({
-    product_id : {
-        type : Number
+    // product_id : {
+    //     type : Number
+    // },
+    name : {
+        type : String,
+        required : true
     },
-    available_items : {
+    price : {
+        type : Double,
+        required : true
+    },
+    availableItems : {
         type : Number
     },
     category : {
@@ -19,23 +27,15 @@ const productSchema = new mongoose.Schema({
         type : String,
         required : true
     },
-    image_url : {
+    imageUrl : {
         type : String,
         required : true
     },
     manufacturer : {
         type : String,
         required : true
-    },
-    name : {
-        type : String,
-        required : true
-    },
-    price : {
-        type : Double,
-        required : true
     }
-},{timestamps : true, versionKey : false}
+},{timestamps : true , versionKey : false}
 )
 
 module.exports = mongoose.model('Product',productSchema);
