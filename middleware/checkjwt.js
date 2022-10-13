@@ -10,6 +10,7 @@ const constants = require('../utils/constants')
 
 
 exports.validateToken = async (req,res,next)=>{
+    try{
     
     const token = req.headers['x-auth-token'];
 
@@ -22,14 +23,18 @@ exports.validateToken = async (req,res,next)=>{
 
     jwt.verify(token,secretConfig.secret,(err,decoded)=>{
         if(err){
-            res.status(401).send({
+            return res.status(401).send({
                 message : "Please login first to access this endpoint!"
             })
         }
         req.email = decoded.email;
         next();
 
-    })
+    })}catch(err){
+        return res.status(500).send({
+            message : "some internal error occured"
+        })
+    }
 
     
 }

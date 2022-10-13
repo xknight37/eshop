@@ -16,7 +16,7 @@ exports.addAddress =async  (req,res)=>{
         state : req.body.state,
         street : req.body.street,
         zipcode : req.body.zipcode,
-        landmark : req.body.landmark,
+        landmark : req.body.landmark??"",
         userId : userObj._id
     }
 

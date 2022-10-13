@@ -5,12 +5,12 @@ const mongoose = require('mongoose');
 const User = require('../models/user.model');
 const Address = require('../models/address.model')
 const Product = require('../models/product.model');
-const Double = require('@mongoosejs/double');
+// const Double = require('@mongoosejs/double');
 
 const orderSchema = new mongoose.Schema({
     // id : Number,
     amount : {
-        type : Double,
+        type : Number,
         required : true
     },
     productId : {

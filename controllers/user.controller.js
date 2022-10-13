@@ -60,7 +60,7 @@ exports.userLogin = async (req,res)=>{
 
     // create json web token
 
-    const token = jwt.sign({email:user.email},authSecret.secret,{expiresIn:300});
+    const token = jwt.sign({email:user.email},authSecret.secret,{expiresIn:600});
 
     res.setHeader('x-auth-token',token);
 

@@ -1,7 +1,7 @@
 // model for product 
 
 const mongoose = require('mongoose');
-const Double = require('@mongoosejs/double');
+// const Double = require('@mongoosejs/double');
 
 
 const productSchema = new mongoose.Schema({
@@ -13,7 +13,7 @@ const productSchema = new mongoose.Schema({
         required : true
     },
     price : {
-        type : Double,
+        type : Number,
         required : true
     },
     availableItems : {

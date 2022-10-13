@@ -11,12 +11,25 @@ exports.createOrder = async (req,res)=>{
     const productId = req.body.productId;
     var a = new Date().toISOString()
 
-    const productObj = Product.find({_id : productId});
-    const addressObj = Address.find({_id : addressId}); 
-    const userObj = User.find({email : userEmail});
+    const productObj = await Product.findOne({_id : productId});
+    const addressObj = await Address.findOne({_id : addressId}); 
+    const userObj = await User.findOne({email : userEmail});
+
+    // console.log(productObj);
+    // console.log(addressObj);
+    // console.log(userObj);
+    // console.log(req.body.quantity)
+    // console.log(productObj.price)
+    // console.log(req.body.productId)
+    // console.log(productObj.price);
+    // console.log(typeof productObj.price);
+    // console.log(typeof req.body.quantity);
+
+
+
 
     const orderObj = {
-        amount : req.body.quantity * productObj.price,
+        amount : req.body.quantity??1  * productObj.price,
         productId : productObj._id,
         addressId : addressObj._id,
         userId : userObj._id,
@@ -24,8 +37,9 @@ exports.createOrder = async (req,res)=>{
         quantity : req.body.quantity
     }
     
-    const obj = Order.create(orderObj);
+    const obj = await Order.create(orderObj);
+    let resultObj = await Order.findOne({_id : obj._id}).populate('productId').populate('addressId').populate('userId');
 
-    return res.status(201).send(obj);
+    return res.status(201).send(resultObj);
 
 }

@@ -21,11 +21,11 @@ exports.validateOrder = async (req,res,next)=>{
         })
     }
 
-    if(!req.body.quantity){
-        return res.status(400).send({
-            message : "Please enter the quantity"
-        })
-    }
+    // if(!req.body.quantity){
+    //     return res.status(400).send({
+    //         message : "Please enter the quantity"
+    //     })
+    // }
 
     next();
 
