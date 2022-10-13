@@ -8,24 +8,28 @@ const Product = require('../models/product.model');
 const Double = require('@mongoosejs/double');
 
 const orderSchema = new mongoose.Schema({
-    id : Number,
+    // id : Number,
     amount : {
         type : Double,
         required : true
     },
-    product_id : {
+    productId : {
         type : mongoose.Schema.Types.ObjectId,
         ref : Product
     },
-    address_id : {
+    addressId : {
         type : mongoose.Schema.Types.ObjectId,
         ref : Address
     },
-    user_id : {
+    userId : {
         type : mongoose.Schema.Types.ObjectId,
         ref : User
-    }
-
-})
+    },
+    orderDate : {
+        type : Date,
+        required : true
+    },
+    quantity : Number
+},{timestamps : true, versionKey : false})
 
 module.exports = mongoose.model('Order',orderSchema);
