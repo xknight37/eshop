@@ -29,53 +29,61 @@ exports.validateToken = async (req, res, next) => {
             next();
         });
     } catch (err) {
+        console.log("Some internal error occurred while validating token");
         return res.status(500).send({
-            message: "some internal error occured",
+            message: "Some internal error occurred while validating token",
         });
     }
 };
 
 exports.isAdmin = async (req, res, next) => {
-    if (!req.body.email) {
-        return res.status(400).send({
-            message: "Please provide an email",
-        });
-    }
+    try {
+        if (!req.body.email) {
+            return res.status(400).send({
+                message: "Please provide an email",
+            });
+        }
 
-    if (!req.body.password) {
-        return res.status(400).send({
-            message: "Please provide a password",
-        });
-    }
+        if (!req.body.password) {
+            return res.status(400).send({
+                message: "Please provide a password",
+            });
+        }
 
-    var emailObj = "";
+        var emailObj = "";
 
-    const tokenObj = req.headers["x-auth-token"];
+        const tokenObj = req.headers["x-auth-token"];
 
-    if (!tokenObj) {
-        return res.status(401).send({
-            message: "Please login first to access this endpoint!",
-        });
-    }
-
-    jwt.verify(tokenObj, secretConfig.secret, (err, decoded) => {
-        if (err) {
-            res.status(401).send({
+        if (!tokenObj) {
+            return res.status(401).send({
                 message: "Please login first to access this endpoint!",
             });
         }
-        emailObj = decoded.email;
-    });
-    // console.log(emailObj);
 
-    const userObj = await User.findOne({ email: emailObj });
-    // console.log(userObj.role);
+        jwt.verify(tokenObj, secretConfig.secret, (err, decoded) => {
+            if (err) {
+                res.status(401).send({
+                    message: "Please login first to access this endpoint!",
+                });
+            }
+            emailObj = decoded.email;
+        });
+        // console.log(emailObj);
 
-    if (userObj && userObj.role == constants.userRole.admin) {
-        next();
-    } else {
-        return res.status(403).send({
-            message: "You are not authorised to access this endpoint!",
+        const userObj = await User.findOne({ email: emailObj });
+        // console.log(userObj.role);
+
+        if (userObj && userObj.role == constants.userRole.admin) {
+            next();
+        } else {
+            return res.status(403).send({
+                message: "You are not authorised to access this endpoint!",
+            });
+        }
+    } catch (err) {
+        console.log("Some internal error occurred");
+        return res.status(500).send({
+            message: "Some internal error occured",
         });
     }
 };

@@ -11,9 +11,7 @@ exports.userSignup = async (req, res) => {
      * cant get to implement the very idea i had - man this is not cool
      * i wanted to find the maximum value of id present and +1 it
      */
-    // const a = User.count();
     const userObj = {
-        // id : await User.find().count()+1,
         email: req.body.email,
         firstName: req.body.firstName,
         lastName: req.body.lastName,
@@ -32,41 +30,57 @@ exports.userSignup = async (req, res) => {
 
         return res.status(201).send(userResp);
     } catch (err) {
-        console.log("Error occurred while creating user", err.message);
+        console.log(
+            "Some internal error occurred while user signup",
+            err.message
+        );
+        return res.status(500).send({
+            message: "Some internal error occurred while user signup",
+        });
     }
 };
 
 exports.userLogin = async (req, res) => {
-    const user = await User.findOne({ email: req.body.email });
+    try {
+        const user = await User.findOne({ email: req.body.email });
 
-    if (!user) {
-        return res.status(400).send({
-            message: "This email has not been registered!",
+        if (!user) {
+            return res.status(400).send({
+                message: "This email has not been registered!",
+            });
+        }
+
+        const isPasswordValid = bcrypt.compareSync(
+            req.body.password,
+            user.password
+        );
+
+        if (!isPasswordValid) {
+            return res.status(400).send({
+                message: "Invalid Credentials!",
+            });
+        }
+
+        // create json web token
+
+        const token = jwt.sign({ email: user.email }, authSecret.secret, {
+            expiresIn: 600,
+        });
+
+        res.setHeader("x-auth-token", token);
+
+        res.status(200).send({
+            email: user.email,
+            name: user.firstName + " " + user.lastName,
+            isAuthencticated: true,
+        });
+    } catch (err) {
+        console.log(
+            "Some internal error occurred while creating user",
+            err.message
+        );
+        return res.status(500).send({
+            message: "Some internal error occurred while logging in",
         });
     }
-
-    const isPasswordValid = bcrypt.compareSync(
-        req.body.password,
-        user.password
-    );
-
-    if (!isPasswordValid) {
-        return res.status(400).send({
-            message: "Invalid Credentials!",
-        });
-    }
-
-    // create json web token
-
-    const token = jwt.sign({ email: user.email }, authSecret.secret, {
-        expiresIn: 600,
-    });
-
-    res.setHeader("x-auth-token", token);
-
-    res.status(200).send({
-        email: user.email,
-        name: user.firstName + " " + user.lastName,
-        isAuthencticated: true,
-    });
 };

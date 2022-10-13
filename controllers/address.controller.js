@@ -24,7 +24,7 @@ exports.addAddress = async (req, res) => {
     } catch (err) {
         console.log("Some internal error occurred", err.message);
         return res.status(500).send({
-            message: "Some internal error occurred",
+            message: "Some internal error occurred while adding address",
         });
     }
 };

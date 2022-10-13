@@ -7,7 +7,7 @@ exports.getAllProducts = async (req, res) => {
     } catch (err) {
         console.log("Error while fetching Products", err.message);
         return res.status(500).send({
-            message: "Some error occurred while fetching Products",
+            message: "Some internal error occurred while fetching Products",
         });
     }
 };
@@ -19,7 +19,7 @@ exports.getProductCategories = async (req, res) => {
     } catch (err) {
         console.log("Error while fetching Product categories", err.message);
         return res.status(500).send({
-            message: "Some error occurred while fetching Categories",
+            message: "Some internal error occurred while fetching Categories",
         });
     }
 };
@@ -36,7 +36,7 @@ exports.getProductById = async (req, res) => {
     } catch (err) {
         console.log("Error while fetching Product details", err.message);
         return res.status(500).send({
-            message: "Some error occurred while fetching Product",
+            message: "Some internal error occurred while fetching Product",
         });
     }
 };
@@ -59,54 +59,67 @@ exports.createProduct = async (req, res) => {
     } catch (err) {
         console.log("Error while creating Product", err.message);
         return res.status(500).send({
-            message: "Some error occurred while creating Product",
+            message: "Some internal error occurred while creating Product",
         });
     }
 };
 
 exports.updateProduct = async (req, res) => {
-    const prodId = req.params.id;
-    // console.log(req.params);
+    try {
+        const prodId = req.params.id;
 
-    const prodObj = await Product.findOne({ _id: prodId });
+        const prodObj = await Product.findOne({ _id: prodId });
 
-    if (!prodObj) {
-        return res.status(404).send({
-            message: `No Product found for ID - ${prodId}!`,
+        if (!prodObj) {
+            return res.status(404).send({
+                message: `No Product found for ID - ${prodId}!`,
+            });
+        }
+
+        const newObj = {
+            name: req.body.name,
+            price: req.body.price,
+            availableItems: req.body.availableItems,
+            category: req.body.category,
+            description: req.body.description,
+            imageUrl: req.body.imageUrl,
+            manufacturer: req.body.manufacturer,
+        };
+
+        const filter = { _id: prodId };
+
+        const updatedObj = await Product.findOneAndUpdate(filter, newObj, {
+            new: true,
+        });
+
+        return res.status(200).send(updatedObj);
+    } catch (err) {
+        console.log("Error while creating Product", err.message);
+        return res.status(500).send({
+            message: "Some internal error occurred while updating Product",
         });
     }
-
-    const newObj = {
-        name: req.body.name,
-        price: req.body.price,
-        availableItems: req.body.availableItems,
-        category: req.body.category,
-        description: req.body.description,
-        imageUrl: req.body.imageUrl,
-        manufacturer: req.body.manufacturer,
-    };
-
-    const filter = { _id: prodId };
-
-    const updatedObj = await Product.findOneAndUpdate(filter, newObj, {
-        new: true,
-    });
-
-    return res.status(200).send(updatedObj);
 };
 
 exports.deleteObject = async (req, res) => {
-    const idObj = req.params.id;
+    try {
+        const idObj = req.params.id;
 
-    const objToDelete = await Product.findOneAndDelete({ _id: idObj });
+        const objToDelete = await Product.findOneAndDelete({ _id: idObj });
 
-    if (!objToDelete) {
-        return res.status(404).send({
-            message: `No Product found for ID - ${idObj}!`,
+        if (!objToDelete) {
+            return res.status(404).send({
+                message: `No Product found for ID - ${idObj}!`,
+            });
+        }
+
+        return res.status(200).send({
+            message: `Product with ID - ${idObj} deleted successfully!`,
+        });
+    } catch (err) {
+        console.log("Error while creating Product", err.message);
+        return res.status(500).send({
+            message: "Some internal error occurred while deleting Product",
         });
     }
-
-    return res.status(200).send({
-        message: `Product with ID - ${idObj} deleted successfully!`,
-    });
 };
