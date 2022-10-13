@@ -36,6 +36,20 @@ exports.validateToken = async (req,res,next)=>{
 
 exports.isAdmin = async (req,res,next)=>{
 
+    if(!req.body.email){
+        return res.status(400).send({
+            message : "Please provide an email"
+        })
+    }
+
+    if(!req.body.password){
+        return res.status(400).send({
+            message : "Please provide a password"
+        })
+    }
+
+
+
     var emailObj = "";
 
     const tokenObj = req.headers['x-auth-token'];

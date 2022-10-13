@@ -14,5 +14,5 @@ module.exports = (app)=>{
 
     app.put('/eshop/api/v1/products/:id',[checkjwt.isAdmin,productMiddleware.validateForUpdate],productController.updateProduct)
 
-    app.delete('/eshop/api/v1/products/{id}',[checkjwt.isAdmin],)
+    app.delete('/eshop/api/v1/products/:id',[checkjwt.isAdmin],productController.deleteObject)
 }
