@@ -3,7 +3,7 @@
  */
 
 const User = require("../models/user.model");
-exports.validateBody = (req, res, next) => {
+exports.validateBody = async (req, res, next) => {
     let firstName = req.body.firstName;
     let lastName = req.body.lastName;
     let email = req.body.email;
@@ -67,8 +67,8 @@ exports.validateBody = (req, res, next) => {
         }
     }
 
-    const userObj = User.findOne({ email: email });
-    if (!userObj) {
+    const userObj = await User.findOne({ email: email });
+    if (userObj) {
         return res.status(400).send({
             message: "Try any other email, this email is already registered!",
         });

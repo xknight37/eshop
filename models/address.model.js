@@ -1,9 +1,11 @@
 // model for address
 const mongoose = require("mongoose");
+
 const User = require("../models/user.model");
 
 const addressSchema = new mongoose.Schema(
     {
+        _id: Number,
         city: {
             type: String,
             required: true,
@@ -29,14 +31,15 @@ const addressSchema = new mongoose.Schema(
             type: String,
             required: true,
         },
-        userId: [
-            {
-                type: mongoose.Schema.Types.ObjectId,
-                // type : mongoose.User.id,
-                ref: User,
-            },
-        ],
+        // userId: [
+        //     {
+        //         type: mongoose.Schema.Types.ObjectId,
+        //         ref: User,
+        //     },
+        // ],
+        userId: Number,
     },
+    { _id: false },
     { timestamps: true, versionKey: false }
 );
 

@@ -1,10 +1,10 @@
 // model for product
 
 const mongoose = require("mongoose");
-// const Double = require('@mongoosejs/double');
 
 const productSchema = new mongoose.Schema(
     {
+        // _id: Number,
         name: {
             type: String,
             required: true,
@@ -33,7 +33,10 @@ const productSchema = new mongoose.Schema(
             required: true,
         },
     },
+    // { _id: false },
     { timestamps: true, versionKey: false }
 );
+
+// productSchema.plugin(AutoIncrement);
 
 module.exports = mongoose.model("Product", productSchema);

@@ -47,13 +47,12 @@ async function init() {
     }
     try {
         const user = await User.create({
-            // id : 1,
             userName: "admin",
             role: constants.userRole.admin,
             password: bcrypt.hashSync("password", 10),
             email: "admin@upgrad.com",
         });
-        console.log(user);
+        console.log("Admin created");
     } catch (err) {
         console.log("Error while storing the user", err.message);
     }

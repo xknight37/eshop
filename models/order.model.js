@@ -1,6 +1,7 @@
 // model for order
 
 const mongoose = require("mongoose");
+const AutoIncrement = require("mongoose-sequence")(mongoose);
 
 const User = require("../models/user.model");
 const Address = require("../models/address.model");
@@ -8,7 +9,7 @@ const Product = require("../models/product.model");
 
 const orderSchema = new mongoose.Schema(
     {
-        // id : Number,
+        // _id: Number,
         amount: {
             type: Number,
             required: true,
@@ -31,7 +32,9 @@ const orderSchema = new mongoose.Schema(
         },
         quantity: Number,
     },
+    // { _id: false },
     { timestamps: true, versionKey: false }
 );
+// orderSchema.plugin(AutoIncrement);
 
 module.exports = mongoose.model("Order", orderSchema);
