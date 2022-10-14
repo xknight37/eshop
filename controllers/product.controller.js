@@ -1,4 +1,5 @@
 const Product = require("../models/product.model");
+const ProductCount = require("../models/productCounter.model");
 
 exports.getAllProducts = async (req, res) => {
     try {
@@ -43,7 +44,21 @@ exports.getProductById = async (req, res) => {
 
 exports.createProduct = async (req, res) => {
     try {
+        const a = await ProductCount.find().count();
+        if (a == 0) {
+            const counterObj = {
+                _id: "productId",
+            };
+            const b = await ProductCount.create(counterObj);
+        }
+        const c = await ProductCount.findOneAndUpdate(
+            { _id: "productId" },
+            { $inc: { seq: 1 } },
+            { returnNewDocument: true }
+        );
+
         const productObj = {
+            _id: c.seq,
             name: req.body.name,
             price: req.body.price,
             availableItems: req.body.availableItems,

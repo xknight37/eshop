@@ -4,7 +4,7 @@ const mongoose = require("mongoose");
 
 const productSchema = new mongoose.Schema(
     {
-        // _id: Number,
+        _id: Number,
         name: {
             type: String,
             required: true,
@@ -33,7 +33,7 @@ const productSchema = new mongoose.Schema(
             required: true,
         },
     },
-    // { _id: false },
+    { _id: false },
     { timestamps: true, versionKey: false }
 );
 
