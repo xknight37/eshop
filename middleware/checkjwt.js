@@ -38,17 +38,17 @@ exports.validateToken = async (req, res, next) => {
 
 exports.isAdmin = async (req, res, next) => {
     try {
-        if (!req.body.email) {
-            return res.status(400).send({
-                message: "Please provide an email",
-            });
-        }
+        // if (!req.body.email) {
+        //     return res.status(400).send({
+        //         message: "Please provide an email",
+        //     });
+        // }
 
-        if (!req.body.password) {
-            return res.status(400).send({
-                message: "Please provide a password",
-            });
-        }
+        // if (!req.body.password) {
+        //     return res.status(400).send({
+        //         message: "Please provide a password",
+        //     });
+        // }
 
         var emailObj = "";
 
