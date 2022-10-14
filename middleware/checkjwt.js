@@ -38,18 +38,6 @@ exports.validateToken = async (req, res, next) => {
 
 exports.isAdmin = async (req, res, next) => {
     try {
-        // if (!req.body.email) {
-        //     return res.status(400).send({
-        //         message: "Please provide an email",
-        //     });
-        // }
-
-        // if (!req.body.password) {
-        //     return res.status(400).send({
-        //         message: "Please provide a password",
-        //     });
-        // }
-
         var emailObj = "";
 
         const tokenObj = req.headers["x-auth-token"];
@@ -68,10 +56,8 @@ exports.isAdmin = async (req, res, next) => {
             }
             emailObj = decoded.email;
         });
-        // console.log(emailObj);
 
         const userObj = await User.findOne({ email: emailObj });
-        // console.log(userObj.role);
 
         if (userObj && userObj.role == constants.userRole.admin) {
             next();

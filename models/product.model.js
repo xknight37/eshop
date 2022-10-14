@@ -37,6 +37,4 @@ const productSchema = new mongoose.Schema(
     { timestamps: true, versionKey: false }
 );
 
-// productSchema.plugin(AutoIncrement);
-
 module.exports = mongoose.model("Product", productSchema);
