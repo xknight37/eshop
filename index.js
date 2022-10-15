@@ -1,5 +1,5 @@
 /**
- * start the server and whole lot of other things
+ * start the server and whole lot of other things happening here
  */
 
 const mongoose = require("mongoose");
