@@ -1,3 +1,7 @@
+/**
+ *  need the controller and the necessary middleware for this
+ */
+
 const productController = require("../controllers/product.controller");
 const productMiddleware = require("../middleware/validateProduct");
 const checkjwt = require("../middleware/checkjwt");

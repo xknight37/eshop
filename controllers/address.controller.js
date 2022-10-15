@@ -1,6 +1,12 @@
+/**
+ * This needs the user , address and addresscount models
+ */
+
 const User = require("../models/user.model");
 const Address = require("../models/address.model");
 const AddressCount = require("../models/addressCounter.model");
+
+// this is for adding new address
 
 exports.addAddress = async (req, res) => {
     try {

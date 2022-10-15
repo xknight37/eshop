@@ -1,3 +1,7 @@
+/**
+ * implementing middleware to perform different checks for products
+ */
+
 const Product = require("../models/product.model");
 
 exports.validateProduct = async (req, res, next) => {

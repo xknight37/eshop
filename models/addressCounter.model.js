@@ -1,5 +1,8 @@
+/**
+ *  creating the address Counter model , this is used to track the progression of the _id counter for address  model
+ */
+
 const mongoose = require("mongoose");
-// const
 
 const addressCounter = new mongoose.Schema({
     _id: {

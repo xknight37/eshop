@@ -1,8 +1,11 @@
 /**
- * middleware logic to perform checks for new users signup
+ * implementing middleware to perform different checks for new users signup
  */
 
 const User = require("../models/user.model");
+
+// validate body for all the details during signup
+
 exports.validateBody = async (req, res, next) => {
     let firstName = req.body.firstName;
     let lastName = req.body.lastName;
@@ -76,6 +79,8 @@ exports.validateBody = async (req, res, next) => {
 
     next();
 };
+
+// validate body during signing in
 
 exports.validateCreds = (req, res, next) => {
     try {

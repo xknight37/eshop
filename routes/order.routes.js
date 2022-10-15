@@ -1,3 +1,7 @@
+/**
+ *  need the controller and the necessary middleware for this
+ */
+
 const orderController = require("../controllers/order.controller");
 const orderMiddleware = require("../middleware/validateOrder");
 const jwt = require("../middleware/checkjwt");

@@ -1,4 +1,9 @@
-//create user model
+/**
+ *  creating the user model , _id as a number is achieved
+ * turns out the autoincrement will create a new collection - 'counters' , only one schema can be made to autoincrement with this
+ * already tried using the same counter with other models, wont work also not desirable as
+ * the counter progresses differently for each model, so had to implement three other counters
+ */
 
 const mongoose = require("mongoose");
 const constants = require("../utils/constants");

@@ -1,12 +1,13 @@
-//check if the x auth token is valid or not
-// also to check if the user is admin or not
+/**
+ * implementing middleware to perform different checks
+ */
 
-// const mongoose = require('mongoose');
-// const bcrypt = require('bcrypt');
 const jwt = require("jsonwebtoken");
 const secretConfig = require("../configs/auth.config");
 const User = require("../models/user.model");
 const constants = require("../utils/constants");
+
+//check if the x auth token is valid or not
 
 exports.validateToken = async (req, res, next) => {
     try {
@@ -35,6 +36,8 @@ exports.validateToken = async (req, res, next) => {
         });
     }
 };
+
+// check if the user is admin or not
 
 exports.isAdmin = async (req, res, next) => {
     try {

@@ -1,4 +1,6 @@
-// need the controller and the necessary middleware for this
+/**
+ *  need the controller and the necessary middleware for this
+ */
 
 const userController = require("../controllers/user.controller");
 const userMiddleware = require("../middleware/validateBody");

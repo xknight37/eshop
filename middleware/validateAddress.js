@@ -1,3 +1,9 @@
+/**
+ * implementing middleware to perform different checks
+ */
+
+// validate if all the fields required for address request are present
+
 exports.validateAddress = (req, res, next) => {
     try {
         if (!req.body) {
