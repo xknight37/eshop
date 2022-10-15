@@ -30,7 +30,7 @@ module.exports = (app) => {
 
     app.delete(
         "/eshop/api/v1/products/:id",
-        [checkjwt.isAdmin],
+        [checkjwt.validateToken, checkjwt.isAdmin],
         productController.deleteObject
     );
 };

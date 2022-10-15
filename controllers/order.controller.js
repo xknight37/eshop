@@ -42,7 +42,7 @@ exports.createOrder = async (req, res) => {
         const finale = await Product.findOneAndUpdate(toUpdateId, updateBody);
 
         const orderObj = {
-            _id: c.seq,
+            _id: c.seq + 1,
             amount: req.body.quantity * productObj.price,
             productId: productObj._id,
             addressId: addressObj._id,

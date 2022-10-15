@@ -23,14 +23,17 @@ exports.validateToken = async (req, res, next) => {
         jwt.verify(token, secretConfig.secret, (err, decoded) => {
             if (err) {
                 return res.status(401).send({
-                    message: "Please login first to access this endpoint!",
+                    message: "Unauthorized Token!",
                 });
             }
             req.email = decoded.email;
             next();
         });
     } catch (err) {
-        console.log("Some internal error occurred while validating token");
+        console.log(
+            "Some internal error occurred while validating token",
+            err.message
+        );
         return res.status(500).send({
             message: "Some internal error occurred while validating token",
         });
@@ -46,21 +49,22 @@ exports.isAdmin = async (req, res, next) => {
         const tokenObj = req.headers["x-auth-token"];
 
         if (!tokenObj) {
+            // req.headers.delete("x-auth-token");
             return res.status(401).send({
                 message: "Please login first to access this endpoint!",
             });
         }
 
-        jwt.verify(tokenObj, secretConfig.secret, (err, decoded) => {
-            if (err) {
-                return res.status(401).send({
-                    message: "Please login first to access this endpoint!",
-                });
-            }
-            emailObj = decoded.email;
-        });
+        // jwt.verify(tokenObj, secretConfig.secret, (err, decoded) => {
+        //     if (err) {
+        //         return res.status(401).send({
+        //             message: "Unauthorized Token!",
+        //         });
+        //     }
+        //     emailObj = decoded.email;
+        // });
 
-        const userObj = await User.findOne({ email: emailObj });
+        const userObj = await User.findOne({ email: req.email });
 
         if (userObj && userObj.role == constants.userRole.admin) {
             next();
@@ -70,7 +74,7 @@ exports.isAdmin = async (req, res, next) => {
             });
         }
     } catch (err) {
-        console.log("Some internal error occurred");
+        console.log("Some internal error occurred", err.message);
         return res.status(500).send({
             message: "Some internal error occured",
         });

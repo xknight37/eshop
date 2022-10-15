@@ -51,6 +51,8 @@ async function init() {
             role: constants.userRole.admin,
             password: bcrypt.hashSync("password", 10),
             email: "admin@upgrad.com",
+            firstName: "upgrad",
+            lastName: "admin",
         });
         console.log("Admin created");
     } catch (err) {

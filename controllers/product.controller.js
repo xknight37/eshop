@@ -3,7 +3,19 @@ const ProductCount = require("../models/productCounter.model");
 
 exports.getAllProducts = async (req, res) => {
     try {
-        const allProducts = await Product.find();
+        const queryObj = {
+            category: req.query.category ?? "",
+            direction: req.query.direction
+                ? req.query.direction.toLowerCase()
+                : "desc",
+            name: req.query.name ?? "",
+            sortBy: req.query.sortBy ? req.query.sortBy : "productId",
+        };
+
+        const allProducts = await Product.find({
+            ...(queryObj.category ? { category: queryObj.category } : {}),
+            ...(queryObj.name ? { name: queryObj.name } : {}),
+        }).sort({ [queryObj.sortBy]: queryObj.direction });
         return res.status(200).send(allProducts);
     } catch (err) {
         console.log("Error while fetching Products", err.message);
@@ -64,7 +76,7 @@ exports.createProduct = async (req, res) => {
         );
 
         const productObj = {
-            _id: c.seq,
+            _id: c.seq + 1,
             name: req.body.name,
             price: req.body.price,
             availableItems: req.body.availableItems,
