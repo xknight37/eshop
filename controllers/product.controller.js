@@ -39,6 +39,7 @@ exports.getProductById = async (req, res) => {
                 message: `No Product found for ID - ${idObj}!`,
             });
         }
+        return res.status(200).send(productObj);
     } catch (err) {
         console.log("Error while fetching Product details", err.message);
         return res.status(500).send({

@@ -35,6 +35,12 @@ exports.createOrder = async (req, res) => {
             });
         }
 
+        const toUpdateId = { _id: productId };
+        const updateBody = {
+            availableItems: productObj.availableItems - req.body.quantity,
+        };
+        const finale = await Product.findOneAndUpdate(toUpdateId, updateBody);
+
         const orderObj = {
             _id: c.seq,
             amount: req.body.quantity * productObj.price,
