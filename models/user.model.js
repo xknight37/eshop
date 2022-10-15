@@ -39,8 +39,7 @@ const userSchema = new mongoose.Schema(
             type: String,
         },
     },
-    { _id: false },
-    { timestamps: true, versionKey: false }
+    { _id: false, timestamps: true, versionKey: false }
 );
 userSchema.plugin(AutoIncrement);
 

@@ -37,8 +37,7 @@ const orderSchema = new mongoose.Schema(
         },
         quantity: Number,
     },
-    { _id: false },
-    { timestamps: true, versionKey: false }
+    { _id: false, timestamps: true, versionKey: false }
 );
 
 module.exports = mongoose.model("Order", orderSchema);

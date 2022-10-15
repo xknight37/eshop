@@ -40,8 +40,7 @@ const addressSchema = new mongoose.Schema(
         ],
         // userId: Number,
     },
-    { _id: false },
-    { timestamps: true, versionKey: false }
+    { _id: false, timestamps: true, versionKey: false }
 );
 
 module.exports = mongoose.model("Address", addressSchema);
