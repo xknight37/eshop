@@ -29,6 +29,15 @@ exports.createOrder = async (req, res) => {
 
         const userObj = await User.findOne({ email: userEmail });
 
+        if (productObj.availableItems < quantity) {
+            return res
+                .status(400)
+                .send({
+                    message:
+                        "Order qunatity cannot be more than available items",
+                });
+        }
+
         const orderObj = {
             _id: c.seq,
             amount: req.body.quantity ?? 1 * productObj.price,
