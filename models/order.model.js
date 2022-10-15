@@ -13,21 +13,24 @@ const orderSchema = new mongoose.Schema(
             type: Number,
             required: true,
         },
-        // productId: {
-        //     type: mongoose.Schema.Types.ObjectId,
-        //     ref: Product,
-        // },
-        // addressId: {
-        //     type: mongoose.Schema.Types.ObjectId,
-        //     ref: Address,
-        // },
-        // userId: {
-        //     type: mongoose.Schema.Types.ObjectId,
-        //     ref: User,
-        // },
-        productId: Number,
-        addressId: Number,
-        userId: Number,
+        productId: {
+            // type: mongoose.Schema.Types.ObjectId,
+            type: Number,
+            ref: Product,
+        },
+        addressId: {
+            // type: mongoose.Schema.Types.ObjectId,
+            type: Number,
+            ref: Address,
+        },
+        userId: {
+            // type: mongoose.Schema.Types.ObjectId,
+            type: Number,
+            ref: User,
+        },
+        // productId: Number,
+        // addressId: Number,
+        // userId: Number,
         orderDate: {
             type: Date,
             required: true,

@@ -26,10 +26,10 @@ exports.addAddress = async (req, res) => {
 
         const userObj = await User.findOne({ email: emailObj });
 
-        console.log(c.seq);
+        // console.log(c.seq);
 
         const addressObj = {
-            _id: c.seq,
+            _id: c.seq + 1,
             name: req.body.name,
             city: req.body.city,
             phone: req.body.phone,

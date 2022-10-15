@@ -69,6 +69,12 @@ exports.validateForUpdate = async (req, res, next) => {
         });
     }
 
+    if (req.body.availableItems < 0) {
+        return res.status(400).send({
+            message: "Please provide positive availableItems for the product",
+        });
+    }
+
     if (!req.body.description) {
         return res.status(400).send({
             message: "Please provide description for the product",

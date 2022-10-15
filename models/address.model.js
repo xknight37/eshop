@@ -31,13 +31,14 @@ const addressSchema = new mongoose.Schema(
             type: String,
             required: true,
         },
-        // userId: [
-        //     {
-        //         type: mongoose.Schema.Types.ObjectId,
-        //         ref: User,
-        //     },
-        // ],
-        userId: Number,
+        userId: [
+            {
+                // type: mongoose.Schema.Types.ObjectId,
+                type: Number,
+                ref: User,
+            },
+        ],
+        // userId: Number,
     },
     { _id: false },
     { timestamps: true, versionKey: false }

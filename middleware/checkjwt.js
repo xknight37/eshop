@@ -53,7 +53,7 @@ exports.isAdmin = async (req, res, next) => {
 
         jwt.verify(tokenObj, secretConfig.secret, (err, decoded) => {
             if (err) {
-                res.status(401).send({
+                return res.status(401).send({
                     message: "Please login first to access this endpoint!",
                 });
             }

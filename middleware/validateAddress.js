@@ -64,6 +64,22 @@ exports.validateAddress = (req, res, next) => {
             }
         }
 
+        if (!(req.body.phone.length === 10)) {
+            return res.status(400).send({
+                message: "please enter proper 10 digit phone number",
+            });
+        }
+
+        if (req.body.phone.length === 10) {
+            let val1 = req.body.phone;
+            let isnum1 = /^\d+$/.test(val1);
+            if (!isnum1) {
+                return res.status(400).send({
+                    message: "Please provide only digits for phone number",
+                });
+            }
+        }
+
         const token = req.headers["x-auth-token"];
         if (!token) {
             return res.status(401).send({
