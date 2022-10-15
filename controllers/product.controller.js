@@ -28,6 +28,11 @@ exports.getProductCategories = async (req, res) => {
 exports.getProductById = async (req, res) => {
     try {
         const idObj = req.params.id;
+        if (isNaN(idObj)) {
+            return res.status(400).send({
+                message: "Please enter a valid number as product id ",
+            });
+        }
         const productObj = await Product.findById(idObj);
         if (!productObj) {
             return res.status(404).send({

@@ -20,6 +20,12 @@ exports.validateOrder = async (req, res, next) => {
         });
     }
 
+    if (!req.body.quantity) {
+        return res.status(400).send({
+            message: "Please enter quantity",
+        });
+    }
+
     if (!typeof req.body.productId === Number) {
         return res.status(400).send({
             message: "Please enter Product ID that is a number",
@@ -29,6 +35,12 @@ exports.validateOrder = async (req, res, next) => {
     if (!typeof req.body.addressId === Number) {
         return res.status(400).send({
             message: "Please enter Address ID that is a number",
+        });
+    }
+
+    if (!typeof req.body.quantity === Number) {
+        return res.status(400).send({
+            message: "Please enter quantity that is a number",
         });
     }
 
