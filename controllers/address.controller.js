@@ -26,6 +26,8 @@ exports.addAddress = async (req, res) => {
 
         const userObj = await User.findOne({ email: emailObj });
 
+        console.log(c.seq);
+
         const addressObj = {
             _id: c.seq,
             name: req.body.name,
